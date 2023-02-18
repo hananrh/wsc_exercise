@@ -17,7 +17,7 @@ import com.perco.interview.feature.matches.view.MatchesScreenViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
-import kotlin.time.Duration.Companion.hours
+import kotlin.time.Duration.Companion.minutes
 
 val mainScreenModule = module {
 
@@ -41,7 +41,7 @@ val mainScreenModule = module {
                         dataType = Games::class.java
                     ),
                     cachePolicy = CachePolicy(
-                        ttlMs = 12.hours.inWholeMilliseconds
+                        ttlMs = 10.minutes.inWholeMilliseconds
                     ),
                     requestKeyResolver = { it },
                     timestampStore = PrefsStore("${name}_timestamps", get(), get())
