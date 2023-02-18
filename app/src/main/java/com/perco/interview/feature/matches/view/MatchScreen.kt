@@ -11,7 +11,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.pager.ExperimentalPagerApi
-import com.google.accompanist.pager.HorizontalPager
+import com.google.accompanist.pager.VerticalPager
+import com.google.accompanist.pager.rememberPagerState
+import com.perco.interview.core.view.VideoPlayer
 import org.koin.androidx.compose.getViewModel
 import org.koin.core.parameter.parametersOf
 
@@ -24,13 +26,20 @@ fun MatchScreen(
     val match by viewModel.state.collectAsState()
     if (match.isSuccess) {
         val videos = match.getOrThrow()
-        HorizontalPager(
+        val pagerState = rememberPagerState()
+        VerticalPager(
             modifier = Modifier
                 .fillMaxSize()
                 .background(MaterialTheme.colors.background)
-                .padding(10.dp), count = videos.size
+                .padding(10.dp),
+            count = videos.size,
+            state = pagerState
         ) { page ->
-            Text(text = videos[page])
+            VideoPlayer(
+//                modifier = Modifier.fillMaxSize(),
+                url = videos[page],
+                play = pagerState.currentPage == page
+            )
         }
     } else {
         Text(text = "Failed to load: ${match.exceptionOrNull()}")
