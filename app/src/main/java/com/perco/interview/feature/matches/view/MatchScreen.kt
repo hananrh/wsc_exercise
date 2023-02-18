@@ -21,11 +21,13 @@ import org.koin.core.parameter.parametersOf
 @Composable
 fun MatchScreen(
     matchId: String,
-    viewModel: MatchScreenViewModel = getViewModel(parameters = { parametersOf(matchId) })
+    viewModel: MatchScreenViewModel = getViewModel(
+        key = matchId,
+        parameters = { parametersOf(matchId) })
 ) {
-    val match by viewModel.state.collectAsState()
-    if (match.isSuccess) {
-        val videos = match.getOrThrow()
+    val matchVideos by viewModel.state.collectAsState()
+    if (matchVideos.isSuccess) {
+        val videos = matchVideos.getOrThrow()
         val pagerState = rememberPagerState()
         VerticalPager(
             modifier = Modifier
@@ -33,15 +35,15 @@ fun MatchScreen(
                 .background(MaterialTheme.colors.background)
                 .padding(10.dp),
             count = videos.size,
-            state = pagerState
+            state = pagerState,
+            key = { videos[it] }
         ) { page ->
             VideoPlayer(
-//                modifier = Modifier.fillMaxSize(),
                 url = videos[page],
                 play = pagerState.currentPage == page
             )
         }
     } else {
-        Text(text = "Failed to load: ${match.exceptionOrNull()}")
+        Text(text = "Failed to load: ${matchVideos.exceptionOrNull()}")
     }
 }

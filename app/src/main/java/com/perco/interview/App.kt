@@ -1,8 +1,9 @@
 package com.perco.interview
 
 import android.app.Application
-import com.perco.interview.core.json.di.jsonModule
 import com.perco.interview.core.assets.di.assetsModule
+import com.perco.interview.core.exo.di.videoPlayerModule
+import com.perco.interview.core.json.di.jsonModule
 import com.perco.interview.core.repo.di.repoModule
 import com.perco.interview.di.appModule
 import com.perco.interview.feature.matches.di.mainScreenModule
@@ -21,7 +22,16 @@ class App : Application() {
             allowOverride(true)
             androidLogger()
             androidContext(applicationContext)
-            modules(listOf(appModule, jsonModule, mainScreenModule, assetsModule, repoModule))
+            modules(
+                listOf(
+                    appModule,
+                    jsonModule,
+                    mainScreenModule,
+                    assetsModule,
+                    repoModule,
+                    videoPlayerModule
+                )
+            )
         }
 
         Timber.plant(if (BuildConfig.DEBUG) Timber.DebugTree() else ReleaseTree())

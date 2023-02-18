@@ -5,23 +5,27 @@ import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.viewinterop.AndroidView
 import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.MediaItem
+import com.google.android.exoplayer2.source.MediaSource
 import com.google.android.exoplayer2.ui.StyledPlayerView
-import timber.log.Timber
+import org.koin.androidx.compose.get
 
 @Composable
-fun VideoPlayer(modifier: Modifier = Modifier, url: String, play: Boolean) {
-    val context = LocalContext.current
-
-    Timber.d("SHIT Video = $url, play = $play")
-
+fun VideoPlayer(
+    modifier: Modifier = Modifier,
+    url: String,
+    play: Boolean,
+    player: ExoPlayer = get(),
+    mediaSourceFactory: MediaSource.Factory = get()
+) {
     val exoPlayer = remember {
-        ExoPlayer.Builder(context).build().apply {
+        player.apply {
             playWhenReady = play
-            setMediaItem(MediaItem.fromUri(url))
+            setMediaSource(
+                mediaSourceFactory.createMediaSource(MediaItem.fromUri(url))
+            )
             prepare()
         }
     }
@@ -39,8 +43,8 @@ fun VideoPlayer(modifier: Modifier = Modifier, url: String, play: Boolean) {
             modifier = modifier,
             factory = {
                 StyledPlayerView(it).apply {
-                    player = exoPlayer
-                    useController = false
+                    this.player = exoPlayer
+                    this.useController = false
                 }
             }
         )

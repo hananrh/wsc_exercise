@@ -1,5 +1,14 @@
 package com.perco.interview.feature.matches.di
 
+import android.content.Context
+import com.google.android.exoplayer2.database.StandaloneDatabaseProvider
+import com.google.android.exoplayer2.upstream.DefaultDataSource
+import com.google.android.exoplayer2.upstream.DefaultHttpDataSource
+import com.google.android.exoplayer2.upstream.FileDataSource
+import com.google.android.exoplayer2.upstream.cache.CacheDataSink
+import com.google.android.exoplayer2.upstream.cache.CacheDataSource
+import com.google.android.exoplayer2.upstream.cache.NoOpCacheEvictor
+import com.google.android.exoplayer2.upstream.cache.SimpleCache
 import com.perco.interview.core.repo.local.cache.CachePolicy
 import com.perco.interview.core.repo.local.cache.TTLCacheLocalDataSource
 import com.perco.interview.core.repo.local.store.StoreLocalDataSource
@@ -17,6 +26,7 @@ import com.perco.interview.feature.matches.view.MatchesScreenViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
+import java.io.File
 import kotlin.time.Duration.Companion.hours
 
 val mainScreenModule = module {
