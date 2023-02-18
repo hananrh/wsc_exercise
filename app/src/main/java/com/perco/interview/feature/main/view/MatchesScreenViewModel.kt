@@ -13,7 +13,11 @@ class MatchesScreenViewModel(repo: Repo<String, Games>) : ViewModel() {
     val state = repo.getData("")
         .mapSuccess { res ->
             res.gameList.map {
-                Match(it.id, it.homeTeam, it.awayTeam, it.homeScore, it.awayScore)
+                Match(
+                    id = it.id,
+                    homeScore = TeamScore(it.homeTeam, it.homeScore),
+                    awayScore = TeamScore(it.awayTeam, it.awayScore)
+                )
             }
         }
         .stateIn(
@@ -25,8 +29,8 @@ class MatchesScreenViewModel(repo: Repo<String, Games>) : ViewModel() {
 
 data class Match(
     val id: String,
-    val homeTeam: String,
-    val awayTeam: String,
-    val homeScore: Int,
-    val awayScore: Int
+    val homeScore: TeamScore,
+    val awayScore: TeamScore
 )
+
+data class TeamScore(val team: String, val score: Int)

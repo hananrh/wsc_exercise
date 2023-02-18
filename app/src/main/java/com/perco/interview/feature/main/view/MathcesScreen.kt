@@ -48,16 +48,16 @@ fun MatchView(match: Match) {
             .padding(10.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        ScoreView(modifier = Modifier.weight(1f), match.homeTeam, match.homeScore)
-        ScoreView(modifier = Modifier.weight(1f), match.awayTeam, match.awayScore)
+        ScoreView(modifier = Modifier.weight(1f), match.homeScore)
+        ScoreView(modifier = Modifier.weight(1f), match.awayScore)
     }
 }
 
 @Composable
-fun ScoreView(modifier: Modifier = Modifier, team: String, score: Int) {
+fun ScoreView(modifier: Modifier = Modifier, score: TeamScore) {
     Column(modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
-        Text(text = team, color = Color.White, textAlign = TextAlign.Center)
+        Text(text = score.team, color = Color.White, textAlign = TextAlign.Center)
         Spacer(modifier = Modifier.height(5.dp))
-        Text(text = "$score", color = Color.White)
+        Text(text = "${score.score}", color = Color.White)
     }
 }
