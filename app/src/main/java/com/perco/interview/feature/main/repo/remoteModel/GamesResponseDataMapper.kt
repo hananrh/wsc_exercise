@@ -1,4 +1,4 @@
-package com.perco.interview.feature.main.repo
+package com.perco.interview.feature.main.repo.remoteModel
 
 import com.perco.interview.core.repo.repos.DataMapper
 import com.perco.interview.feature.main.model.Game

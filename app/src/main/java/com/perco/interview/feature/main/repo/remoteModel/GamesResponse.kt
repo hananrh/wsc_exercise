@@ -1,4 +1,4 @@
-package com.perco.interview.feature.main.repo
+package com.perco.interview.feature.main.repo.remoteModel
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass

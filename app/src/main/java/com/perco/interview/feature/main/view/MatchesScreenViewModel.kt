@@ -3,14 +3,13 @@ package com.perco.interview.feature.main.view
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.perco.interview.core.extension.mapSuccess
-import com.perco.interview.core.repo.Repo
-import com.perco.interview.feature.main.model.Games
+import com.perco.interview.feature.main.repo.GamesRepo
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.stateIn
 
-class MatchesScreenViewModel(repo: Repo<String, Games>) : ViewModel() {
+class MatchesScreenViewModel(repo: GamesRepo) : ViewModel() {
 
-    val state = repo.getData("")
+    val state = repo.getAll()
         .mapSuccess { res ->
             res.gameList.map {
                 Match(
