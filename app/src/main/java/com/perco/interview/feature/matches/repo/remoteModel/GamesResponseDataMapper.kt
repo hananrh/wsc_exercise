@@ -1,8 +1,8 @@
-package com.perco.interview.feature.main.repo.remoteModel
+package com.perco.interview.feature.matches.repo.remoteModel
 
 import com.perco.interview.core.repo.repos.DataMapper
-import com.perco.interview.feature.main.model.Game
-import com.perco.interview.feature.main.model.Games
+import com.perco.interview.feature.matches.model.Game
+import com.perco.interview.feature.matches.model.Games
 
 class GamesResponseDataMapper : DataMapper<GamesResponse, Games> {
 
@@ -21,7 +21,8 @@ class GamesResponseDataMapper : DataMapper<GamesResponse, Games> {
                         homeTeam = game.teams.home.name,
                         awayTeam = game.teams.away.name,
                         homeScore = lastPage.homeScore!!,
-                        awayScore = lastPage.awayScore!!
+                        awayScore = lastPage.awayScore!!,
+                        videos = game.wscGame.primeStory.pages.mapNotNull { it.videoUrl }
                     )
                 }
         )

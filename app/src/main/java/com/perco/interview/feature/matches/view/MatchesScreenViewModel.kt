@@ -1,9 +1,9 @@
-package com.perco.interview.feature.main.view
+package com.perco.interview.feature.matches.view
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.perco.interview.core.extension.mapSuccess
-import com.perco.interview.feature.main.repo.GamesRepo
+import com.perco.interview.feature.matches.repo.GamesRepo
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.stateIn
 

@@ -1,4 +1,4 @@
-package com.perco.interview.feature.main.repo.remoteModel
+package com.perco.interview.feature.matches.repo.remoteModel
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
@@ -31,7 +31,8 @@ data class WscGame(@Json(name = "primeStory") val primeStory: PrimeStory?) {
         @JsonClass(generateAdapter = true)
         data class Page(
             @Json(name = "homeScore") val homeScore: Int?,
-            @Json(name = "awayScore") val awayScore: Int?
+            @Json(name = "awayScore") val awayScore: Int?,
+            @Json(name = "videoUrl") val videoUrl: String?
         )
     }
 }

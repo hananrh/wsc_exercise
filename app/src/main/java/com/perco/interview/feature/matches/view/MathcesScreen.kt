@@ -1,6 +1,7 @@
-package com.perco.interview.feature.main.view
+package com.perco.interview.feature.matches.view
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -19,7 +20,10 @@ import androidx.compose.ui.unit.dp
 import org.koin.androidx.compose.getViewModel
 
 @Composable
-fun MainScreen(viewModel: MatchesScreenViewModel = getViewModel()) {
+fun MatchesScreen(
+    viewModel: MatchesScreenViewModel = getViewModel(),
+    onMatchClicked: (Match) -> Unit
+) {
     val matches by viewModel.state.collectAsState()
     if (matches.isSuccess) {
         LazyColumn(
@@ -30,7 +34,7 @@ fun MainScreen(viewModel: MatchesScreenViewModel = getViewModel()) {
             verticalArrangement = Arrangement.spacedBy(10.dp)
         ) {
             items(matches.getOrThrow()) {
-                MatchView(it)
+                MatchView(modifier = Modifier.clickable { onMatchClicked(it) }, it)
             }
         }
     } else {
@@ -39,9 +43,9 @@ fun MainScreen(viewModel: MatchesScreenViewModel = getViewModel()) {
 }
 
 @Composable
-fun MatchView(match: Match) {
+fun MatchView(modifier: Modifier = Modifier, match: Match) {
     Row(
-        Modifier
+        modifier
             .fillMaxWidth()
             .clip(RoundedCornerShape(10.dp))
             .background(Color.Black)

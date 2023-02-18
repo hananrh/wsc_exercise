@@ -1,9 +1,9 @@
-package com.perco.interview.feature.main.repo
+package com.perco.interview.feature.matches.repo
 
 import com.perco.interview.core.extension.mapSuccess
 import com.perco.interview.core.repo.Repo
-import com.perco.interview.feature.main.model.Game
-import com.perco.interview.feature.main.model.Games
+import com.perco.interview.feature.matches.model.Game
+import com.perco.interview.feature.matches.model.Games
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 

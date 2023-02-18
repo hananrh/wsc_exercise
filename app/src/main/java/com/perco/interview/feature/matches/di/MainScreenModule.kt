@@ -1,4 +1,4 @@
-package com.perco.interview.feature.main.di
+package com.perco.interview.feature.matches.di
 
 import com.perco.interview.core.repo.local.cache.CachePolicy
 import com.perco.interview.core.repo.local.cache.TTLCacheLocalDataSource
@@ -7,12 +7,13 @@ import com.perco.interview.core.repo.remote.AssetDataSource
 import com.perco.interview.core.repo.repos.RemoteCachedRepo
 import com.perco.interview.core.store.asFlowStore
 import com.perco.interview.core.store.prefs.PrefsStore
-import com.perco.interview.feature.main.model.Games
-import com.perco.interview.feature.main.repo.GamesRepo
-import com.perco.interview.feature.main.repo.GamesRepoImpl
-import com.perco.interview.feature.main.repo.remoteModel.GamesResponse
-import com.perco.interview.feature.main.repo.remoteModel.GamesResponseDataMapper
-import com.perco.interview.feature.main.view.MatchesScreenViewModel
+import com.perco.interview.feature.matches.model.Games
+import com.perco.interview.feature.matches.repo.GamesRepo
+import com.perco.interview.feature.matches.repo.GamesRepoImpl
+import com.perco.interview.feature.matches.repo.remoteModel.GamesResponse
+import com.perco.interview.feature.matches.repo.remoteModel.GamesResponseDataMapper
+import com.perco.interview.feature.matches.view.MatchScreenViewModel
+import com.perco.interview.feature.matches.view.MatchesScreenViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
@@ -22,6 +23,10 @@ val mainScreenModule = module {
 
     viewModel {
         MatchesScreenViewModel(get())
+    }
+
+    viewModel { params ->
+        MatchScreenViewModel(get(), params.get())
     }
 
     single<GamesRepo> {

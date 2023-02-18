@@ -1,4 +1,4 @@
-package com.perco.interview.feature.main.model
+package com.perco.interview.feature.matches.model
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
@@ -12,5 +12,6 @@ data class Game(
     @Json(name = "homeTeam") val homeTeam: String,
     @Json(name = "awayTeam") val awayTeam: String,
     @Json(name = "homeScore") val homeScore: Int,
-    @Json(name = "awayScore") val awayScore: Int
+    @Json(name = "awayScore") val awayScore: Int,
+    @Json(name = "videos") val videos: List<String>,
 )
