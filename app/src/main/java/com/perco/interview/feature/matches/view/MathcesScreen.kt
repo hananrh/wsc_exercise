@@ -48,7 +48,7 @@ fun MatchView(modifier: Modifier = Modifier, match: Match) {
         modifier
             .fillMaxWidth()
             .clip(RoundedCornerShape(10.dp))
-            .background(Color.Black)
+            .background(Color.Blue)
             .padding(10.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {

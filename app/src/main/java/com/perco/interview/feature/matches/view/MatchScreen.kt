@@ -19,7 +19,6 @@ import kotlinx.coroutines.launch
 import org.koin.androidx.compose.getViewModel
 import org.koin.core.parameter.parametersOf
 
-@OptIn(ExperimentalPagerApi::class)
 @Composable
 fun MatchScreen(
     matchId: String,
@@ -28,32 +27,39 @@ fun MatchScreen(
         parameters = { parametersOf(matchId) })
 ) {
     val matchVideos by viewModel.state.collectAsState()
-    val coroutineScope = rememberCoroutineScope()
     if (matchVideos.isSuccess) {
         val videos = matchVideos.getOrThrow()
-        val pagerState = rememberPagerState()
-        VerticalPager(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(MaterialTheme.colors.background)
-                .padding(10.dp),
-            count = videos.size,
-            state = pagerState,
-            key = { videos[it] }
-        ) { page ->
-            VideoPlayer(
-                url = videos[page],
-                play = pagerState.currentPage == page,
-                onPlaybackDone = {
-                    coroutineScope.launch {
-                        if (page < videos.size - 1) {
-                            pagerState.animateScrollToPage(page + 1)
-                        }
-                    }
-                }
-            )
+        if (videos.isNotEmpty()) {
+            VideosPager(videos)
         }
     } else {
         Text(text = "Failed to load: ${matchVideos.exceptionOrNull()}")
+    }
+}
+
+@Composable
+@OptIn(ExperimentalPagerApi::class)
+private fun VideosPager(
+    videos: List<String>,
+) {
+    val coroutineScope = rememberCoroutineScope()
+    val pagerState = rememberPagerState()
+    VerticalPager(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(MaterialTheme.colors.background)
+            .padding(10.dp),
+        count = Int.MAX_VALUE, // Endless feed
+        state = pagerState
+    ) { page ->
+        VideoPlayer(
+            url = videos[page % videos.size],
+            play = pagerState.currentPage == page,
+            onPlaybackDone = {
+                coroutineScope.launch {
+                    pagerState.animateScrollToPage(page + 1)
+                }
+            }
+        )
     }
 }
