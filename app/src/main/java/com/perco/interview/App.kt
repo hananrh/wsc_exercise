@@ -5,7 +5,6 @@ import com.perco.interview.core.assets.di.assetsModule
 import com.perco.interview.core.exo.di.videoPlayerModule
 import com.perco.interview.core.json.di.jsonModule
 import com.perco.interview.core.repo.di.repoModule
-import com.perco.interview.di.appModule
 import com.perco.interview.feature.matches.di.mainScreenModule
 import com.perco.interview.logging.ReleaseTree
 import org.koin.android.ext.koin.androidContext
@@ -24,7 +23,6 @@ class App : Application() {
             androidContext(applicationContext)
             modules(
                 listOf(
-                    appModule,
                     jsonModule,
                     mainScreenModule,
                     assetsModule,
