@@ -1,14 +1,14 @@
 package com.perco.interview.feature.matches.repo.remoteModel
 
-import com.perco.interview.core.repo.repos.DataMapper
+import com.perco.interview.core.utils.ValueMapper
 import com.perco.interview.feature.matches.model.Game
 import com.perco.interview.feature.matches.model.Games
 
-class GamesResponseDataMapper : DataMapper<GamesResponse, Games> {
+class GamesResponseDataMapper : ValueMapper<GamesResponse, Games> {
 
-    override suspend fun map(data: GamesResponse) =
+    override suspend fun map(value: GamesResponse) =
         Games(
-            data.games
+            value.games
                 .filter { game ->
                     game.wscGame?.primeStory?.pages?.lastOrNull().let {
                         it?.homeScore != null && it.awayScore != null

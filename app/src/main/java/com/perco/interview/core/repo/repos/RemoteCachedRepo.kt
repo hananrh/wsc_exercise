@@ -3,6 +3,7 @@ package com.perco.interview.core.repo.repos
 import com.perco.interview.core.repo.Repo
 import com.perco.interview.core.repo.local.ExpirableData
 import com.perco.interview.core.repo.local.LocalDataSource
+import com.perco.interview.core.utils.ValueMapper
 import com.shire.robin.repo.base.remote.RemoteDataSource
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -12,15 +13,11 @@ import kotlinx.coroutines.flow.transformLatest
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
-fun interface DataMapper<T, S> {
-    suspend fun map(data: T): S
-}
-
 class RemoteCachedRepo<T : Any, S, SA>(
     private val name: String,
     private val remoteSource: RemoteDataSource<T, S>,
     private val localSource: LocalDataSource<T, ExpirableData<SA>>,
-    private val remoteDataMapper: DataMapper<S, SA>,
+    private val remoteDataMapper: ValueMapper<S, SA>,
     private val scope: CoroutineScope
 ) : Repo<T, SA> {
 

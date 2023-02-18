@@ -1,6 +1,6 @@
 package com.perco.interview.core.repo.local.cache
 
-import com.perco.interview.core.ValueMapper
+import com.perco.interview.core.utils.ValueMapper
 import com.perco.interview.core.repo.local.ExpirableData
 import com.perco.interview.core.repo.local.LocalDataSource
 import com.perco.interview.core.repo.local.TTLExpirationException
